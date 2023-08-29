@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/assets/styles/login.css">
+    <title>Login</title>
+</head>
+<body>
+
+    <div class = "blur-container" >
+        <div class = "main-container">
+            <div class="login-image"></div>
+            <div class ="login-container">
+                <form action = "/login" method="post">
+                    <p id = "sign-in" >Sign In</p>
+                    <input type="text" id="email-field" name="email" placeholder="Enter Email" required>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                    <div class="login-options">
+                        <label for="remember" class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for = "remember-me">Remember me</label>
+                        </label>
+                        <label for="forgot-password">Forgot Password ?</label>
+                        <label for ="text"><%= text %></label>
+                    </div> 
+                    <button type="submit"  class="login-btn">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
