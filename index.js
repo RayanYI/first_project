@@ -15,7 +15,7 @@ const verifyTokenMiddleware = (req, res, next) => {
 
     if (token) {
         try {
-            const decoded = jwt.verify(token, secretKey);
+            jwt.verify(token, secretKey);
             res.redirect('/profil');
         } catch (err) {
             next();
@@ -31,7 +31,7 @@ const verifyTokenAvailabilityMiddleware = (req, res, next) => {
 
     if (token) {
         try {
-            const decoded = jwt.verify(token, secretKey);
+            jwt.verify(token, secretKey);
             next();
         } catch (err) {
             res.redirect('/login');
