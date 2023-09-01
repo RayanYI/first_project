@@ -6,41 +6,7 @@ const loginController = require("./controllers/loginController");
 const registerController = require ("./controllers/registerController");
 const db = require('./models');
 const cookieParser = require('cookie-parser');
-const secretKey = require('./secretKey');
-const jwt = require('jsonwebtoken');
-
-const verifyTokenMiddleware = (req, res, next) => {
-    // Vérifier si le token est présent dans les cookies
-    const token = req.cookies.token;
-
-    if (token) {
-        try {
-            jwt.verify(token, secretKey);
-            res.redirect('/profil');
-        } catch (err) {
-            next();
-        }
-    } else {
-        next();
-    }
-};
-
-const verifyTokenAvailabilityMiddleware = (req, res, next) => {
-    // Vérifier si le token est présent dans les cookies
-    const token = req.cookies.token;
-
-    if (token) {
-        try {
-            jwt.verify(token, secretKey);
-            next();
-        } catch (err) {
-            res.redirect('/login');
-        }
-    } else {
-        res.redirect('/login');
-    }
-};
-
+const tokenMiddleware = require('./tokenMiddleware');
 app.set('view engine', 'ejs');
 
 // Middleware pour analyser les données du corps de la requête au format JSON
@@ -52,10 +18,10 @@ app.use(cookieParser());
 
 app.use('/public', express.static('public'));
 
-app.get('/login', verifyTokenMiddleware);
-app.get('/register', verifyTokenMiddleware);
-app.get('/hello', verifyTokenAvailabilityMiddleware);
-app.get('/profil', verifyTokenAvailabilityMiddleware);
+app.get('/login', tokenMiddleware.verifyTokenMiddleware);
+app.get('/register', tokenMiddleware.verifyTokenMiddleware);
+app.get('/hello', tokenMiddleware.verifyTokenAvailabilityMiddleware);
+app.get('/profil', tokenMiddleware.verifyTokenAvailabilityMiddleware);
 
 app.use('/hello', require('./routes/hello'));
 
